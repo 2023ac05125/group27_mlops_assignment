@@ -10,3 +10,4 @@ sqlalchemy
 pytest
 flake8
 dvc
+httpx
