@@ -1,0 +1,11 @@
+__pycache__/
+.venv/
+*.pyc
+mlruns/
+.pytest_cache/
+.DS_Store
+models/best_model.pkl
+predictions.db
+app.log
+.dvc/
+.dvcignore

@@ -1,0 +1,12 @@
+scikit-learn
+pandas
+joblib
+mlflow
+fastapi
+uvicorn
+prometheus_client
+pydantic
+sqlalchemy
+pytest
+flake8
+dvc
