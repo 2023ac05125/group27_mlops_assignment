@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'housing_api'
+    static_configs:
+      # on Windows Docker Desktop, use host.docker.internal to reach services running on the Windows host
+      - targets: ['host.docker.internal:8000']
