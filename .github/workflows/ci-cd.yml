@@ -24,13 +24,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build and (optionally) push Docker image
+      - name: Set up QEMU (for multi-arch, optional)
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push Docker image
         env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/housing-api
         run: |
-          echo "Building Docker image..."
-          docker build -t ${{ env.DOCKERHUB_USERNAME }}/housing-api:${{ github.sha }} .
-          # To push, set DOCKERHUB_USERNAME and DOCKERHUB_TOKEN in repo secrets, then uncomment:
-          # echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-          # docker push ${{ env.DOCKERHUB_USERNAME }}/housing-api:${{ github.sha }}
+          echo "Building image ${IMAGE_NAME}:${{ github.sha }}"
+          docker build -t ${IMAGE_NAME}:${{ github.sha }} .
+          docker tag ${IMAGE_NAME}:${{ github.sha }} ${IMAGE_NAME}:latest
+          docker push ${IMAGE_NAME}:${{ github.sha }}
+          docker push ${IMAGE_NAME}:latest
