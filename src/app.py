@@ -130,7 +130,7 @@ def log_to_sqlite(input_obj, prediction):
         SQLITE_ROWS.set(int(cnt))
         conn.close()
     except Exception as e:
-        logger.error(f"Error updating SQLITE_ROWS after insert: {e}")
+        logger.error(f"Error updating SQLITE_ROWS after insert demo: {e}")
 
 # Initialize sqlite table and gauge on startup
 ensure_table()
