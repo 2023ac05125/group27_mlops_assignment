@@ -60,7 +60,7 @@ jobs:
           path: models/
 
   docker:
-    needs: lint-test
+    needs: [lint-test, train-model]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
